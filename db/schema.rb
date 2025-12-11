@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_09_164220) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_11_193000) do
   create_table "appointments", force: :cascade do |t|
     t.integer "client_id", null: false
     t.datetime "created_at", null: false
@@ -36,6 +36,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_09_164220) do
     t.text "address"
     t.datetime "created_at", null: false
     t.datetime "deleted_at"
+    t.datetime "discarded_at"
     t.string "email", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -43,6 +44,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_09_164220) do
     t.string "phone"
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_clients_on_deleted_at"
+    t.index ["discarded_at"], name: "index_clients_on_discarded_at"
     t.index ["email"], name: "index_clients_on_email", unique: true
   end
 
@@ -52,6 +54,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_09_164220) do
     t.datetime "created_at", null: false
     t.date "date_of_birth"
     t.datetime "deleted_at"
+    t.datetime "discarded_at"
     t.text "medical_notes"
     t.string "name", null: false
     t.string "sex"
@@ -62,6 +65,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_09_164220) do
     t.decimal "weight", precision: 5, scale: 2
     t.index ["client_id"], name: "index_dogs_on_client_id"
     t.index ["deleted_at"], name: "index_dogs_on_deleted_at"
+    t.index ["discarded_at"], name: "index_dogs_on_discarded_at"
   end
 
   create_table "enrollments", force: :cascade do |t|
@@ -161,6 +165,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_09_164220) do
     t.string "share_token"
     t.datetime "share_token_expires_at"
     t.integer "socialization_score"
+    t.integer "status", default: 0, null: false
     t.text "strengths"
     t.text "trainer_notes"
     t.datetime "updated_at", null: false
@@ -180,6 +185,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_09_164220) do
     t.decimal "price", precision: 10, scale: 2, null: false
     t.datetime "updated_at", null: false
     t.index ["active"], name: "index_service_types_on_active"
+    t.index ["name"], name: "index_service_types_on_name", unique: true
   end
 
   create_table "session_media", force: :cascade do |t|
